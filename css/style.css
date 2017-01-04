@@ -30,8 +30,8 @@ body {
   margin: 0 auto; }
 
 .content_container {
-  padding-right: 50px;
-  padding-top: 20px; }
+  padding-right: 10px;
+  padding-top: 0px; }
 
 a, button.submit {
   color: #6E7173;
@@ -160,7 +160,7 @@ div {
   color: #888; }
 
 .post {
-  padding: 25px 0 15px; }
+  padding: 5px 0 15px; }
   .post .post-title {
     margin: 0;
     color: #555;
@@ -223,7 +223,7 @@ div {
     text-justify: distribute;
     word-break: normal; }
     .post .post-content h2 {
-      margin: 1.4em 0 1.1em;
+      margin: 1.0em 0 1.0em;
       border-bottom: 1px solid #eee;
       overflow: hidden; }
     .post .post-content h3 {
@@ -323,6 +323,11 @@ div {
   .page-navigator .space {
     border: none;
     padding: 5px 5px; }
+
+#show-word span {
+  font-size: 18px;
+  color: #c7254e;
+  font-weight: bold; }
 
 #footer {
   padding: .8em 0 3.6em;
