@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Index on Raymond Shaw&#39;s Blog</title>
+    <link>https://raymondxiao1991.github.io/categories/index/</link>
+    <description>Recent content in Index on Raymond Shaw&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sun, 18 Dec 2016 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://raymondxiao1991.github.io/categories/index/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>function-call</title>
+      <link>https://raymondxiao1991.github.io/post/function-call/</link>
+      <pubDate>Sun, 18 Dec 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://raymondxiao1991.github.io/post/function-call/</guid>
+      <description>function-call Dec 28, 2016 | Hits 1.2 仿函数（function call操作符） 从函数指针到仿函数。 1.1 函数调用操作符（C++语法中的左右括号）也可以被重载。 许多STL</description>
+    </item>
+    
+  </channel>
+</rss>

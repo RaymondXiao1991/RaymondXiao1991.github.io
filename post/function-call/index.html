@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en" itemscope itemtype="http://schema.org/WebPage">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>function-call - Raymond Shaw&#39;s Blog</title>
+  <link rel="alternate" hreflang="en" href="https://raymondxiao1991.github.io/" />
+
+<meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta name="MobileOptimized" content="width"/>
+<meta name="HandheldFriendly" content="true"/>
+
+
+<meta name="applicable-device" content="pc,mobile">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+<meta name="mobile-web-app-capable" content="yes">
+
+<meta name="author" content="Raymond Shaw" />
+  <meta name="description" content="function-call Dec 28, 2016 | Hits 1.2 仿函数（function call操作符） 从函数指针到仿函数。 1.1 函数调用操作符（C&#43;&#43;语法中的左右括号）也可以被重载。 许多STL" />
+
+  <meta name="keywords" content="Hugo, theme, jane" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.42.1" />
+
+
+<link rel="canonical" href="https://raymondxiao1991.github.io/post/function-call/" />
+
+
+
+<link rel="icon" href="/favicon.ico" />
+
+
+
+
+
+
+
+
+
+
+<link href="/dist/jane.min.css?v=2.7.0" rel="stylesheet">
+
+
+
+
+<meta property="og:title" content="function-call" />
+<meta property="og:description" content="function-call Dec 28, 2016 | Hits 1.2 仿函数（function call操作符） 从函数指针到仿函数。 1.1 函数调用操作符（C&#43;&#43;语法中的左右括号）也可以被重载。 许多STL" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://raymondxiao1991.github.io/post/function-call/" />
+
+
+
+<meta property="article:published_time" content="2016-12-18T00:00:00&#43;00:00"/>
+
+<meta property="article:modified_time" content="2016-12-18T00:00:00&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="function-call">
+<meta itemprop="description" content="function-call Dec 28, 2016 | Hits 1.2 仿函数（function call操作符） 从函数指针到仿函数。 1.1 函数调用操作符（C&#43;&#43;语法中的左右括号）也可以被重载。 许多STL">
+
+
+<meta itemprop="datePublished" content="2016-12-18T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2016-12-18T00:00:00&#43;00:00" />
+<meta itemprop="wordCount" content="839">
+
+
+
+<meta itemprop="keywords" content="C&#43;&#43;,STL," />
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="function-call"/>
+<meta name="twitter:description" content="function-call Dec 28, 2016 | Hits 1.2 仿函数（function call操作符） 从函数指针到仿函数。 1.1 函数调用操作符（C&#43;&#43;语法中的左右括号）也可以被重载。 许多STL"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Raymond</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <li class="mobile-menu-item">
+        <a href="https://raymondxiao1991.github.io/">
+          Home
+        </a>
+      </li><li class="mobile-menu-item">
+        <a href="https://raymondxiao1991.github.io/post/">
+          Archives
+        </a>
+      </li><li class="mobile-menu-item">
+        <a href="https://raymondxiao1991.github.io/tags/">
+          Tags
+        </a>
+      </li><li class="mobile-menu-item">
+        <a href="https://raymondxiao1991.github.io/categories/">
+          Categories
+        </a>
+      </li><li class="mobile-menu-item">
+        <a href="https://raymondxiao1991.github.io/about/">
+          About
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+  
+    
+
+
+
+
+
+
+  <link rel="stylesheet" href="/lib/photoswipe/photoswipe.min.css" />
+  <link rel="stylesheet" href="/lib/photoswipe/default-skin/default-skin.min.css" />
+
+
+
+
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+<div class="pswp__bg"></div>
+
+<div class="pswp__scroll-wrap">
+    
+    <div class="pswp__container">
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+      <div class="pswp__item"></div>
+    </div>
+    
+    <div class="pswp__ui pswp__ui--hidden">
+    <div class="pswp__top-bar">
+      
+      <div class="pswp__counter"></div>
+      <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+      <button class="pswp__button pswp__button--share" title="Share"></button>
+      <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+      <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+      
+      
+      <div class="pswp__preloader">
+        <div class="pswp__preloader__icn">
+          <div class="pswp__preloader__cut">
+            <div class="pswp__preloader__donut"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+      <div class="pswp__share-tooltip"></div>
+    </div>
+    <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+    </button>
+    <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+    </button>
+    <div class="pswp__caption">
+      <div class="pswp__caption__center"></div>
+    </div>
+    </div>
+    </div>
+</div>
+
+  
+
+  
+
+  <header id="header" class="header container">
+    <div class="logo-wrapper">
+  <a href="/" class="logo">
+    
+      Raymond
+    
+  </a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://raymondxiao1991.github.io/">Home</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://raymondxiao1991.github.io/post/">Archives</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://raymondxiao1991.github.io/tags/">Tags</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://raymondxiao1991.github.io/categories/">Categories</a>
+          
+
+        
+
+      </li>
+    
+      <li class="menu-item">
+        
+          
+          
+            <a class="menu-item-link" href="https://raymondxiao1991.github.io/about/">About</a>
+          
+
+        
+
+      </li>
+    
+  </ul>
+</nav>
+
+  </header>
+
+  <div id="mobile-panel">
+    <main id="main" class="main bg-llight">
+      <div class="content-wrapper">
+        <div id="content" class="content container">
+          <article class="post bg-white">
+    
+    <header class="post-header">
+      <h1 class="post-title">function-call</h1>
+      
+      <div class="post-meta">
+        <span class="post-time"> 2016-12-18 </span>
+        <div class="post-category">
+            
+              <a href="/categories/development/"> Development </a>
+            
+              <a href="/categories/c&#43;&#43;/"> C&#43;&#43; </a>
+            
+              <a href="/categories/index/"> index </a>
+            
+          </div>
+        <span class="more-meta"> 839 words </span>
+        <span class="more-meta"> 2 min read </span>
+      </div>
+    </header>
+
+    
+    
+<div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Table of Contents</h2>
+  <div class="post-toc-content">
+    <nav id="TableOfContents">
+<ul>
+<li><a href="#function-call">function-call</a></li>
+<li><a href="#1-2-仿函数-function-call操作符">1.2 仿函数（function call操作符）</a>
+<ul>
+<li><a href="#1-1-函数调用操作符-c-语法中的左右括号-也可以被重载">1.1 函数调用操作符（C++语法中的左右括号）也可以被重载。</a></li>
+<li><a href="#1-2-为此-引入仿函数的概念-stl算法的特殊版本所接受的所谓-条件-或-策略-或-一整组操作-都以仿函数形式呈现">1.2 为此，引入仿函数的概念。STL算法的特殊版本所接受的所谓“条件”或“策略”或“一整组操作”，都以仿函数形式呈现。</a></li>
+<li><a href="#1-3-如果要成为一个可适配的仿函数呢">1.3 如果要成为一个可适配的仿函数呢？</a></li>
+</ul></li>
+</ul>
+</nav>
+  </div>
+</div>
+
+    
+    <div class="post-content">
+      
+
+<h1 id="function-call">function-call</h1>
+
+<p>Dec 28, 2016 | Hits</p>
+
+<h1 id="1-2-仿函数-function-call操作符">1.2 仿函数（function call操作符）</h1>
+
+<p>从函数指针到仿函数。</p>
+
+<h2 id="1-1-函数调用操作符-c-语法中的左右括号-也可以被重载">1.1 函数调用操作符（C++语法中的左右括号）也可以被重载。</h2>
+
+<p><code>许多STL算法都提供了两个版本，一个用于一般状况（例如排序时以递增方式排列），一个用于特殊状况（例如排序时由使用者指定以何种特殊关系进行排列）。像这种情况，需要用户指定某个条件或策略，而条件或策略的背后由一整组操作构成，便需要某种特殊的东西来代表这“一整组操作”。</code>
+<code>代表“一整组操作”的，是函数。在旧式C语言中，欲将函数当做参数传递，唯有通过函数指针才能达成。例子如下：</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"> <span class="cp">#include</span> <span class="cpf">&lt;cstdlib&gt;</span><span class="cp">
+</span><span class="cp"></span> <span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp"></span> <span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+ <span class="kt">int</span> <span class="nf">fcmp</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">elem1</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">elem2</span><span class="p">);</span>
+
+ <span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+     <span class="kt">int</span> <span class="n">ia</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">32</span><span class="p">,</span> <span class="mi">97</span><span class="p">,</span> <span class="mi">62</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">59</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">9</span><span class="p">};</span>
+
+     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+         <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ia</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
+
+     <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+     <span class="n">qsort</span><span class="p">(</span><span class="n">ia</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">ia</span><span class="p">)</span><span class="o">/</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span> <span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">),</span> <span class="n">fcmp</span><span class="p">);</span>
+
+     <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+         <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ia</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
+
+     <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+ <span class="p">}</span>
+
+ <span class="kt">int</span> <span class="nf">fcmp</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">elem1</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">elem2</span><span class="p">){</span>
+     <span class="k">const</span> <span class="kt">int</span><span class="o">*</span> <span class="n">i1</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">elem1</span><span class="p">;</span>
+     <span class="k">const</span> <span class="kt">int</span><span class="o">*</span> <span class="n">i2</span> <span class="o">=</span> <span class="p">(</span><span class="k">const</span> <span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">elem2</span><span class="p">;</span>
+
+     <span class="k">if</span><span class="p">(</span><span class="o">*</span><span class="n">i1</span> <span class="o">&lt;</span> <span class="o">*</span><span class="n">i2</span><span class="p">)</span>
+         <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+     <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">*</span><span class="n">i1</span> <span class="o">==</span> <span class="o">*</span><span class="n">i2</span><span class="p">)</span>
+         <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+     <span class="k">else</span> <span class="k">if</span><span class="p">(</span><span class="o">*</span><span class="n">i1</span>  <span class="o">*</span><span class="n">i2</span><span class="p">)</span>
+         <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>    
+ <span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>　　<code>函数指针的缺点：无法持有自己的状态（局部状态），也无法达到组件技术中的可适配性——也就是无法再将某些修饰条件加诸于其上而改变其状态。</code></p>
+
+<h2 id="1-2-为此-引入仿函数的概念-stl算法的特殊版本所接受的所谓-条件-或-策略-或-一整组操作-都以仿函数形式呈现">1.2 为此，引入仿函数的概念。STL算法的特殊版本所接受的所谓“条件”或“策略”或“一整组操作”，都以仿函数形式呈现。</h2>
+
+<p>　　 针对某个class进行operator()重载，它就成为一个仿函数。
+　　 　　 　　 例子如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-C++" data-lang="C++"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span><span class="cp"></span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="c1">// 由于将operator()重载了，因此plus成为了一个仿函数
+</span><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">PLUS</span> <span class="p">{</span>
+    <span class="n">T</span> <span class="k">operator</span><span class="p">()</span> <span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span><span class="k">return</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">;}</span>
+<span class="p">};</span>
+
+<span class="c1">// 由于将operator()重载了，因此minus成为了一个仿函数
+</span><span class="c1"></span><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span><span class="err"> </span><span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">MINUS</span> <span class="p">{</span>
+    <span class="n">T</span> <span class="k">operator</span><span class="p">()</span> <span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">x</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">y</span><span class="p">)</span> <span class="k">const</span> <span class="p">{</span><span class="k">return</span> <span class="n">x</span> <span class="o">-</span> <span class="n">y</span><span class="p">;}</span>
+<span class="p">};</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(){</span>
+    <span class="c1">// 产生仿函数对象
+</span><span class="c1"></span>    <span class="n">PLUS</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">plusObj</span><span class="p">;</span>
+    <span class="n">MINUS</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">minusObj</span><span class="p">;</span>
+
+    <span class="c1">// 使用仿函数，就像使用一般函数一样
+</span><span class="c1"></span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">plusObj</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">minusObj</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+
+    <span class="c1">// 直接产生仿函数的临时对象（第一对小括号），并调用（第二对小括号）
+</span><span class="c1"></span>    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">PLUS</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">MINUS</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">()</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div>
+<p>　　 上述的 PLUS 和 MINUS 已经非常接近STL的实现了，唯一的差别在于它缺乏“可适配能力”。</p>
+
+<h2 id="1-3-如果要成为一个可适配的仿函数呢">1.3 如果要成为一个可适配的仿函数呢？</h2>
+
+<p>　　<code>将在读完第8章再进行总结。</code></p>
+
+    </div>
+
+    
+    
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Raymond Shaw</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">2016-12-18</span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+    
+    
+
+    <footer class="post-footer">
+      <div class="post-tags">
+          
+          <a href="/tags/c&#43;&#43;/">C&#43;&#43;</a>
+          
+          <a href="/tags/stl/">STL</a>
+          
+        </div>
+
+      
+      <nav class="post-nav">
+        
+        
+      </nav>
+    </footer>
+    
+
+  
+
+  
+
+  
+  </article>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://xiao_gongpeng@163.com" rel="me noopener" class="iconfont icon-email"
+        title="email" target="_blank">
+      </a>
+      <a href="https://github.com/RaymondXiao1991" rel="me noopener" class="iconfont icon-github"
+        title="github" target="_blank">
+      </a>
+      <a href="https://www.jianshu.com/u/b0702a59ee51" rel="me noopener" class="iconfont icon-jianshu"
+        title="jianshu" target="_blank">
+      </a>
+      <a href="http://www.cnblogs.com/xiaoqingyang/" rel="me noopener" class="iconfont icon-cnblogs"
+        title="cnblogs" target="_blank">
+      </a>
+  <a href="https://raymondxiao1991.github.io/index.xml" rel="noopener" type="application/rss+xml" class="iconfont icon-rss"
+    title="rss" target="_blank">
+  </a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - <a class="theme-link" href="https://github.com/xianmin/hugo-theme-jane">Jane</a>
+  </span>
+
+  <span class="copyright-year">
+    &copy;
+    
+      2017 -
+    2018
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span><span class="author">Raymond</span></span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+<script type="text/javascript" src="/lib/jquery/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="/lib/slideout/slideout-1.0.1.min.js"></script>
+<script type="text/javascript" src="/dist/jane.min.js?v=2.7.0"></script>
+
+
+
+
+
+  
+    <script type="text/javascript" src="/js/load-photoswipe.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe.min.js"></script>
+    <script type="text/javascript" src="/lib/photoswipe/photoswipe-ui-default.min.js"></script>
+  
+
+
+
+
+
+</body>
+</html>
